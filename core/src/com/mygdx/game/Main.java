@@ -41,6 +41,7 @@ public class Main extends Game {
 
 		Group group2 = new Group();
 		group = new Board(boardHeight,boardXPosition,boardYPosition);
+
 		group2.setPosition(boardXPosition,boardYPosition);
 		group2.addActor(group);
 
@@ -53,12 +54,12 @@ public class Main extends Game {
 		}
 		group2.addActor(table);
 
-//		Table table1 = new Table();
-//		Array<Table> snake = createSnake(SnakeAndLadderCount);
-//		for (Table z : snake){
-//			table1.addActor(z);
-//		}
-//		group2.addActor(table1);
+		Table table1 = new Table();
+		Array<Table> snake = createSnake(SnakeAndLadderCount);
+		for (Table z : snake){
+			table1.addActor(z);
+		}
+		group2.addActor(table1);
 
 		stage.addActor(group2);
 		System.out.println(ladderMap);
@@ -67,24 +68,23 @@ public class Main extends Game {
 	}
 
 	Map<Integer, Integer> ladderMap = new HashMap<>();
-	public static <K, V> K getKey(Map<K, V> ladderMap, V value)
-	{
-		for (Map.Entry<K, V> entry: ladderMap.entrySet())
-		{
-			if (value.equals(entry.getValue())) {
-				return entry.getKey();
-			}
-		}
-		return null;
-	}
+//	public static <K, V> K getKey(Map<K, V> ladderMap, V value)
+//	{
+//		for (Map.Entry<K, V> entry: ladderMap.entrySet())
+//		{
+//			if (value.equals(entry.getValue())) {
+//				return entry.getKey();
+//			}
+//		}
+//		return null;
+//	}
 
 	//creating start cell for ladder with checking there would no more present that start cell for any other ladder
 	public int ladderFirstCell(){
 		Random ran = new Random();
 		int cellFirst = ran.nextInt(78)+1;
 		
-		Iterator<Map.Entry<Integer, Integer> >
-				iterator = ladderMap.entrySet().iterator();
+		Iterator<Map.Entry<Integer, Integer> > iterator = ladderMap.entrySet().iterator();
 
 		boolean isKeyPresent = false;
 
@@ -323,26 +323,26 @@ public class Main extends Game {
 		Image face= new Image(new Texture("Snake-Face.png"));
 		Table headTable= new Table();
 		face.setColor(r,g,b,1);
-		headTable.add(face).width(10).height(20);
+		headTable.add(face).width(group.table[0].getWidth()*0.4f).height(group.table[0].getHeight()*0.5f);
 		ladder.add(headTable).row();
 
 
 		double height=calculateDistanceBetweenPoints(group.table[cellFirst].getX()+group.table[cellFirst].getWidth()/2,group.table[cellFirst].getY()+group.table[cellFirst].getHeight()/2,group.table[cellSecond].getX()+group.table[cellSecond].getWidth()/2,group.table[cellSecond].getY()+group.table[cellSecond].getHeight()/2);
 		System.out.println("Ladder height-->"+height);
 
-		height = height-(2*20);
+		height = height-(2*(group.table[0].getHeight()*0.5f));
 		if(height<1){
-			height=20;
+			height=group.table[0].getHeight();
 		}
 
-		long NumOfMidRequired= Math.round(height/(30));
+		long NumOfMidRequired= Math.round(height/(group.table[0].getHeight()));
 		for (int i= 0;i<NumOfMidRequired;i++){
 			Image medial = new Image(new Texture("Snake-Body.png"));
 			Table medialTable= new Table();
 //			medial.rotateBy(12);
 			medial.setColor(r,g,b,1);
 
-			medialTable.add(medial).width(20).height(30);
+			medialTable.add(medial).width(group.table[0].getWidth()*0.4f).height(group.table[0].getHeight());
 			ladder.add(medialTable).expandY().fillY().row();
 
 		}
@@ -354,7 +354,7 @@ public class Main extends Game {
 		Table bottomTable= new Table();
 		tail.setColor(r,g,b,1);
 
-		bottomTable.add(tail).width(15).height(20);
+		bottomTable.add(tail).width(group.table[0].getWidth()*0.4f).height(group.table[0].getHeight()*0.5f);
 		ladder.add(bottomTable).expandY().fillY();
 
 		return ladder;

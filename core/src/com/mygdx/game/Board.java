@@ -52,6 +52,7 @@ public class Board extends Group {
                     locX += Gdx.graphics.getWidth() / 10f;
                     group.addActor(table[tableNo]);
                     tableNo++;
+//                    table[tableNo].pack();
                 }
             } else {
                 float locX=Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/20f;
@@ -71,12 +72,14 @@ public class Board extends Group {
                     table[tableNo].setPosition(locX, locY);
                     locX -= Gdx.graphics.getWidth() / 10f;
                     group.addActor(table[tableNo]);
-//                    tableNo++;
+                    tableNo++;
+//                    table[tableNo].pack();
                 }
             }
             locY=locY+height / 20f;
 
         }
+
         group.setPosition(x,y );
 
     }
